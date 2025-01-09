@@ -31,12 +31,6 @@ Run all unit and integration tests:
 ```bash
 npm test
 ```
-
-To detect open handles during tests:
-
-```bash
-npm test
-```
 ## PostMan Testing
 You can import Postman Collection to see predefined use case 
 
@@ -63,10 +57,23 @@ Create a short URL.
 
 ### GET `/:shortId`
 example : http://localhost:3000/abc123
+Each click is registered in clickCount for db object
 If url is protected you should have Authorization header with structure : Bearer $password
 
 Redirect to the original URL.
-
+### GET `/urls`
+**Response**:
+  ```json
+  [
+    {
+        "shortId": "uVl9wK",
+        "shortUrl": "http://localhost:3000/uVl9wK",
+        "originalUrl": "https://example.io/",
+        "clickCount": 1,
+        "createdAt": "2025-01-09T18:54:35.693Z"
+    }
+]
+  ```
 ### Error Handling
 
 All errors return a JSON response with an appropriate status code.
