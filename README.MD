@@ -29,6 +29,7 @@ The application will run at `http://localhost:3000`.
 Run all unit and integration tests:
 
 ```bash
+npm install
 npm test
 ```
 ## PostMan Testing

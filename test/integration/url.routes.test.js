@@ -4,12 +4,13 @@
 const request = require('supertest');
 const app = require('../../src/app');
 
-// Mock Redis for integration or connect to a test Redis
 jest.mock('../../src/config/redis', () => {
-  // Return an in-memory or mock client if you prefer
   return {
     redisClient: {
-      // Implement needed methods for the test
+      zRemRangeByScore:jest.fn(),
+      zCount: jest.fn().mockResolvedValue(),
+      zAdd:jest.fn().mockResolvedValue(),
+      expire:jest.fn().mockResolvedValue(),
       setEx: jest.fn(),
       get: jest.fn().mockResolvedValue(null),
       ttl: jest.fn().mockResolvedValue(1000),
