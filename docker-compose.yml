@@ -1,26 +1,22 @@
-version: "3.8"
+version: '3.8'
+
 services:
+  app:
+    container_name: net-nut-io-app
+    build:
+      context: .
+      dockerfile: ./docker/DockerFile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    environment:
+      - NODE_ENV=production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
   redis:
-    image: redis:6.2
-    container_name: my-redis
+    container_name: net-nut-io-redis
+    image: redis:6.2-alpine
     ports:
       - "6379:6379"
-    # If you need persistence, you can define a volume:
-    # volumes:
-    #   - redis-data:/data
-
-  # app:
-  #   build: 
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: node-app
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - redis
-  #   environment:
-  #     - REDIS_HOST=redis
-  #     - REDIS_PORT=6379
-
-# volumes:
-#   redis-data:

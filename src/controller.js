@@ -1,6 +1,7 @@
 // src/controllers/url.controller.js
 const urlService = require("./service");
-
+const { createHashedPassword, comparePasswords } = require("./utils/utils");
+const validator = require('validator');
 /**
  * POST /shorten
  * Body: { "url": "https://example.com" }
@@ -8,16 +9,16 @@ const urlService = require("./service");
  */
 async function shortenUrl(req, res, next) {
   try {
-    let { url } = req.body;
-    if (!url) {
-      return res.status(400).json({ error: "URL is required" });
-    }
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      url = `https://${url}`;
-    }
+    let { url, password } = req.body;
+    let normalizeUrl = url ? url.trim() : '';
+    if (!normalizeUrl)  return res.status(400).json({ error: "URL is required" });
+    if (!normalizeUrl.startsWith("http://") && !normalizeUrl.startsWith("https://"))  normalizeUrl = `https://${normalizeUrl}`;
+    if (!validator.isURL(normalizeUrl,{require_protocol:false})) return res.status(400).json({error:"Invalid URL Format"})
+
+    let hashedPass = await createHashedPassword(password);
 
     // Create short URL record
-    const record = await urlService.createShortUrl(url);
+    const record = await urlService.createShortUrl(normalizeUrl, hashedPass);
     const shortUrl = `${req.protocol}://${req.get("host")}/${record.shortId}`;
 
     return res.json({ shortUrl });
@@ -34,15 +35,17 @@ async function redirectUrl(req, res, next) {
   try {
     const { shortId } = req.params;
     const record = await urlService.getShortUrl(shortId);
-
-    if (!record) {
-      return res.status(404).json({ error: "URL not found or expired" });
+    const userInputPassword  = req.query?.password;
+    if (!record) return res.status(404).json({ error: "URL not found or expired" });
+    if (record.hashedPass && !userInputPassword ) return res.status(401).json({ error: "Password Required" });
+    if (userInputPassword ) {
+      const checkPass = await comparePasswords(userInputPassword , record.hashedPass);
+      if (!checkPass)
+        return res.status(401).json({ error: "Invalid Password" });
     }
+    // we passed everything
 
-    // increment the click count
     await urlService.incrementClickCount(shortId);
-
-    // redirect to original
     return res.redirect(record.originalUrl);
   } catch (error) {
     next(error);
@@ -56,7 +59,6 @@ async function redirectUrl(req, res, next) {
 async function listUrls(req, res, next) {
   try {
     const urls = await urlService.listAllUrls();
-
     const mapped = urls.map((item) => ({
       shortId: item.shortId,
       shortUrl: `${req.protocol}://${req.get("host")}/${item.shortId}`,

@@ -1,27 +1,19 @@
-// src/app.js
-// require('dotenv').config();
 const express = require('express');
-const morgan = require('morgan');
-// const helmet = require('helmet');
 
+const helmet = require('helmet');
 const urlRoutes = require('./routes');
-// (Optional) Rate limiting and Auth
 const rateLimiter = require('./middlewares/rateLimiter');
-const authMiddleware = require('./middlewares/auth');
+
 
 const app = express();
-app.use((req, res, next) => {
-  console.log(`[DEBUG] ${req.method} ${req.originalUrl}`);
-    next();
-  });
-  
-// Middleware
-app.use(express.json());
-app.use(morgan('dev'));
-// app.use(helmet());
 
-app.use(rateLimiter);         // optional
-app.use(authMiddleware);      // optional
+  
+
+app.use(express.json());
+app.use(helmet());
+
+// Middleware
+app.use(rateLimiter);         
 
 app.use('/', urlRoutes);
 

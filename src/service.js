@@ -4,13 +4,14 @@ const path = require("path");
 const { redisClient } = require("./config/redis");
 const { generateShortId } = require("./utils/utils");
 
-async function createShortUrl(originalUrl) {
+async function createShortUrl(originalUrl,hashedPass) {
   const shortId = generateShortId();
 
   const key = `url:${shortId}`;
   const createdAt = Date.now();
   const data = {
     originalUrl,
+    hashedPass,
     clickCount: 0,
     createdAt,
   };
@@ -72,7 +73,6 @@ async function listAllUrls() {
 
       if (rawData) {
         const shortData = JSON.parse(rawData);
-
         const shortId = keys[i].split(":")[1];
         results.push({ shortId, ...shortData });
       }
