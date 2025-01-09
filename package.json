@@ -1,0 +1,20 @@
+{
+    "name": "redis-url-shortener",
+    "version": "1.0.0",
+    "description": "A simple URL Shortener that uses Redis for storage and logs to a file",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "dev": "nodemon src/app.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.18.0",
+        "helmet": "^8.0.0",
+        "morgan": "^1.10.0",
+        "redis": "^4.5.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    }
+}

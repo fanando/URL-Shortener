@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:6.2
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+    # If you need persistence, you can define a volume:
+    # volumes:
+    #   - redis-data:/data
+
+  # app:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: node-app
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - redis
+  #   environment:
+  #     - REDIS_HOST=redis
+  #     - REDIS_PORT=6379
+
+# volumes:
+#   redis-data:

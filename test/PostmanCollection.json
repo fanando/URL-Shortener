@@ -1,0 +1,83 @@
+{
+    "info": {
+      "name": "URL Shortener Collection",
+      "_postman_id": "12345678-aaaa-bbbb-cccc-1234567890ab",
+      "description": "Collection to test the basic endpoints of the URL Shortener service",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+      {
+        "key": "baseUrl",
+        "value": "http://localhost:3000",
+        "type": "string"
+      }
+    ],
+    "item": [
+      {
+        "name": "List All URLs",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{baseUrl}}/urls",
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "path": [
+              "urls"
+            ]
+          },
+          "description": "Retrieve a list of all shortened URLs"
+        },
+        "response": []
+      },
+      {
+        "name": "Get URL by ID",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{baseUrl}}/:id",
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "path": [
+              ":id"
+            ]
+          },
+          "description": "Retrieve the original URL by its short ID"
+        },
+        "response": []
+      },
+      {
+        "name": "Shorten URL",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "name": "Content-Type",
+              "value": "application/json",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"url\": \"https://netnut.io/\"\n}"
+          },
+          "url": {
+            "raw": "{{baseUrl}}/shorten",
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "path": [
+              "shorten"
+            ]
+          },
+          "description": "Create a shortened URL from the given long URL."
+        },
+        "response": []
+      }
+    ]
+  }
+  
