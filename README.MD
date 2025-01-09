@@ -39,25 +39,6 @@ npm test
 ```
 ## PostMan Testing
 You can import Postman Collection to see predefined use case 
-## Project Structure
-
-```
-src/
-├── app.js             # Express application setup
-├── index.js           # Server startup
-├── middlewares/       # Middleware functions
-│   ├── auth.js        # Authentication middleware
-│   ├── rateLimiter.js # Rate limiting middleware
-├── routes/            # API routes
-├── services/          # Business logic
-├── config/            # Configuration files
-│   ├── redis.js       # Redis client setup
-├── utils/             # Utility functions
-test/
-├── integration/       # Integration tests
-├── unit/              # Unit tests
-.env                   # Environment variables
-```
 
 ## API Endpoints
 
@@ -82,6 +63,7 @@ Create a short URL.
 
 ### GET `/:shortId`
 example : http://localhost:3000/abc123
+If url is protected you should have Authorization header with structure : Bearer $password
 
 Redirect to the original URL.
 
