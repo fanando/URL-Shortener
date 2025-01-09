@@ -17,16 +17,10 @@ app.use(rateLimiter);
 
 app.use('/', urlRoutes);
 
-
-
-
-// Simple Error Handler
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`URL Shortener running on port ${PORT}`);
-});
+module.exports = app;

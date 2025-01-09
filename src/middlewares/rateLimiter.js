@@ -1,4 +1,3 @@
-// src/middlewares/rateLimiter.middleware.js
 const { redisClient } = require('../config/redis');
 
 module.exports = async (req, res, next) => {
