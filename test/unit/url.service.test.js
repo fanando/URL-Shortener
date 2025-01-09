@@ -23,7 +23,6 @@ describe('URL Service - createShortUrl', () => {
 
     // Expect setEx to be called
     expect(redisClient.setEx).toHaveBeenCalledTimes(1);
-    // We can also do further checks on arguments
   });
 });
 
