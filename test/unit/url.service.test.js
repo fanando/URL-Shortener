@@ -2,7 +2,7 @@
  * @fileoverview Unit tests for the URL Service
  */
 
-const { createShortUrl, getShortUrl } = require('../../src/service');
+const { createShortUrl, getShortUrl } = require('../../src/common/service');
 const { redisClient } = require('../../src/config/redis');
 
 jest.mock('../../src/config/redis', () => {

@@ -1,5 +1,5 @@
 const urlService = require("./service");
-const { createHashedPassword, comparePasswords } = require("./utils/utils");
+const { createHashedPassword, comparePasswords } = require("../utils/utils");
 const validator = require('validator');
 /**
  * POST /shorten

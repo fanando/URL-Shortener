@@ -4,8 +4,8 @@
     "description": "A simple URL Shortener that uses Redis for storage and logs to a file",
     "main": "src/app.js",
     "scripts": {
-        "start": "node src/app.js",
-        "dev": "nodemon src/app.js",
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
         "test": "jest"
     },
     "dependencies": {

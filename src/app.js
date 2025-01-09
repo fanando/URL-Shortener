@@ -1,7 +1,7 @@
 const express = require('express');
 
 const helmet = require('helmet');
-const urlRoutes = require('./routes');
+const urlRoutes = require('./common/routes');
 const rateLimiter = require('./middlewares/rateLimiter');
 
 
@@ -11,10 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
-
-// Middleware
 app.use(rateLimiter);         
-
 app.use('/', urlRoutes);
 
 app.use((err, req, res, next) => {

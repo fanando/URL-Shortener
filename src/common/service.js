@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const { redisClient } = require("./config/redis");
-const { generateShortId } = require("./utils/utils");
+const { redisClient } = require("../config/redis");
+const { generateShortId } = require("../utils/utils");
 
 async function createShortUrl(originalUrl,hashedPass) {
   const shortId = generateShortId();
@@ -24,7 +24,7 @@ async function createShortUrl(originalUrl,hashedPass) {
     createdAt,
     archivedAt: new Date().toISOString(),
   };
-  const archivePath = path.join(__dirname, "../archive/shortenedUrls.log");
+  const archivePath = path.join(__dirname, "../../archive/shortenedUrls.log");
   fs.appendFileSync(archivePath, JSON.stringify(archiveEntry) + "\n");
   return { shortId, ...data };
 }
