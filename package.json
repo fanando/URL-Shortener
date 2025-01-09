@@ -1,5 +1,5 @@
 {
-    "name": "redis-url-shortener",
+    "name": "url-shorter",
     "version": "1.0.0",
     "description": "A simple URL Shortener that uses Redis for storage and logs to a file",
     "main": "src/app.js",
